@@ -1,0 +1,27 @@
+<nav class="w-full border-b border-slate-800/60 bg-slate-950/80 backdrop-blur">
+  <div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between gap-4">
+    <!-- Logo / Brand -->
+    <a href="{{ url_for('main.index') }}" class="text-sm font-semibold text-white">
+      E-Learning Math SD
+    </a>
+
+    <!-- Menu tengah -->
+    <div class="hidden md:flex items-center gap-6 text-xs font-medium text-slate-300">
+      <a href="#beranda" class="hover:text-white">Beranda</a>
+      <a href="#fitur" class="hover:text-white">Fitur</a>
+      <a href="#testimoni" class="hover:text-white">Testimoni</a>
+      <a href="#kontak" class="hover:text-white">Kontak</a>
+    </div>
+
+    <!-- Kanan: toggle theme + profil -->
+    <div class="flex items-center gap-3">
+      {% include "components/theme_toggle.html" %}
+      <button
+        class="w-9 h-9 rounded-full border border-slate-600 bg-slate-900 flex items-center justify-center text-slate-200 hover:border-sky-400 hover:text-sky-300 transition text-lg"
+        title="Profil"
+      >
+        ☺
+      </button>
+    </div>
+  </div>
+</nav>

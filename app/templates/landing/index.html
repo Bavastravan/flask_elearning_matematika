@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}E-Learning Matematika SD{% endblock %}
+
+{% block content %}
+<div class="min-h-screen relative overflow-hidden bg-sky-50 text-slate-900 dark:bg-gradient-to-b dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 dark:text-white">
+  <!-- dekorasi bentuk-bentuk matematika -->
+  <div class="pointer-events-none absolute inset-0 opacity-20">
+    <div class="absolute -top-10 -left-10 w-40 h-40 border-2 border-sky-400 rounded-3xl rotate-6"></div>
+    <div class="absolute top-1/3 right-6 w-24 h-24 border border-emerald-400 rounded-full"></div>
+    <div class="absolute bottom-10 left-1/3 w-16 h-16 border border-purple-400 rotate-45"></div>
+  </div>
+
+  <div class="relative flex flex-col items-center justify-center px-4 py-16">
+    <!-- Beranda / Hero -->
+    <section id="beranda" class="text-center space-y-4">
+      <p class="text-xs uppercase tracking-[0.2em] text-sky-400 mb-1">
+        Belajar Matematika Dasar
+      </p>
+      <h1 class="text-3xl md:text-4xl font-bold text-white">
+        E-Learning Matematika SD
+      </h1>
+      <p class="text-sm md:text-base text-slate-200 max-w-xl mt-2 mx-auto">
+        Latihan interaktif untuk kelas 1–6 SD: penjumlahan, pengurangan, perkalian,
+        pembagian, dan soal cerita dengan tampilan yang ramah anak.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-3 justify-center mt-5">
+        <a
+          href="{{ url_for('auth.login') }}"
+          class="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-sky-500 hover:bg-sky-600 text-white text-sm font-medium shadow-md shadow-sky-500/40 transition"
+        >
+          Mulai Belajar
+        </a>
+        <a
+          href="{{ url_for('auth.register') }}"
+          class="inline-flex items-center justify-center px-5 py-2.5 rounded-full border border-sky-400 text-sky-300 hover:bg-slate-900/60 text-sm font-medium transition"
+        >
+          Daftar Akun Siswa
+        </a>
+      </div>
+    </section>
+
+    <!-- Fitur singkat -->
+    <section id="fitur" class="mt-10 grid gap-4 md:grid-cols-3 w-full max-w-4xl mx-auto">
+      <div class="bg-white/80 dark:bg-slate-800/80 border border-slate-200/60 dark:border-slate-700 rounded-xl p-4 text-sm">
+        <h3 class="font-semibold mb-1 text-slate-900 dark:text-slate-100">
+          Belajar Bertahap
+        </h3>
+        <p class="text-slate-600 dark:text-slate-300">
+          Materi disusun per kelas dan per topik, dari bilangan dasar sampai pecahan sederhana.
+        </p>
+      </div>
+      <div class="bg-white/80 dark:bg-slate-800/80 border border-slate-200/60 dark:border-slate-700 rounded-xl p-4 text-sm">
+        <h3 class="font-semibold mb-1 text-slate-900 dark:text-slate-100">
+          Latihan Interaktif
+        </h3>
+        <p class="text-slate-600 dark:text-slate-300">
+          Soal pilihan ganda dan isian singkat dengan koreksi otomatis serta skor langsung.
+        </p>
+      </div>
+      <div class="bg-white/80 dark:bg-slate-800/80 border border-slate-200/60 dark:border-slate-700 rounded-xl p-4 text-sm">
+        <h3 class="font-semibold mb-1 text-slate-900 dark:text-slate-100">
+          Pantau Kemajuan
+        </h3>
+        <p class="text-slate-600 dark:text-slate-300">
+          Guru dan orang tua dapat melihat progres nilai siswa untuk tiap topik.
+        </p>
+      </div>
+    </section>
+
+    <!-- Testimoni -->
+    <section id="testimoni" class="mt-10 w-full max-w-4xl mx-auto">
+      <h2 class="text-center text-lg font-semibold text-white mb-4">
+        Apa kata mereka?
+      </h2>
+      <div class="grid gap-4 md:grid-cols-2">
+        <figure class="bg-white/80 dark:bg-slate-800/80 border border-slate-200/60 dark:border-slate-700 rounded-xl p-4 text-sm">
+          <blockquote class="text-slate-700 dark:text-slate-200 italic">
+            “Anak saya makin pandai matematika setelah belajar di sini.”
+          </blockquote>
+          <figcaption class="mt-2 text-slate-600 dark:text-slate-300">
+            <span class="font-semibold">Ibu Ani</span> · Orang Tua
+          </figcaption>
+        </figure>
+        <figure class="bg-white/80 dark:bg-slate-800/80 border border-slate-200/60 dark:border-slate-700 rounded-xl p-4 text-sm">
+          <blockquote class="text-slate-700 dark:text-slate-200 italic">
+            “Setelah belajar matematika dari sini, saya makin siap menghadapi ujian sekolah.”
+          </blockquote>
+          <figcaption class="mt-2 text-slate-600 dark:text-slate-300">
+            <span class="font-semibold">Tiara</span> · Siswa Kelas 6 SD
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Kontak -->
+    <section id="kontak" class="mt-10 w-full max-w-4xl mx-auto mb-10 text-center text-sm text-slate-200">
+      <p>
+        Kontak pengembang / admin:
+        <span class="font-semibold">admin@elearning-math.local</span>
+      </p>
+    </section>
+  </div>
+</div>
+{% endblock %}

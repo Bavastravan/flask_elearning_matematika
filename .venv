@@ -1,0 +1,2 @@
+SECRET_KEY=super-secret-key-kamu
+DATABASE_URL=mysql+pymysql://root:@localhost/e_learning_math

@@ -9,77 +9,71 @@
 
     <!-- Menu tengah -->
     <div class="hidden md:flex items-center gap-6 text-xs font-medium text-slate-600 dark:text-slate-300">
-<a href="{{ url_for('main.index') }}" data-section="beranda"
-   class="nav-link hover:text-slate-900 dark:hover:text-white">
-  Beranda
-</a>
-  <a href="#fitur" data-section="fitur"
-     class="nav-link hover:text-slate-900 dark:hover:text-white">
-    Fitur
-  </a>
-  <a href="#testimoni" data-section="testimoni"
-     class="nav-link hover:text-slate-900 dark:hover:text-white">
-    Testimoni
-  </a>
-  <a href="#kontak" data-section="kontak"
-     class="nav-link hover:text-slate-900 dark:hover:text-white">
-    Kontak
-  </a>
-</div>
+      <a href="{{ url_for('main.index') }}" data-section="beranda"
+         class="nav-link hover:text-slate-900 dark:hover:text-white">
+        Beranda
+      </a>
+      <a href="#fitur" data-section="fitur"
+         class="nav-link hover:text-slate-900 dark:hover:text-white">
+        Fitur
+      </a>
+      <a href="#testimoni" data-section="testimoni"
+         class="nav-link hover:text-slate-900 dark:hover:text-white">
+        Testimoni
+      </a>
+      <a href="#kontak" data-section="kontak"
+         class="nav-link hover:text-slate-900 dark:hover:text-white">
+        Kontak
+      </a>
+    </div>
 
     <!-- Kanan: toggle theme + auth + profil -->
-   <div class="flex items-center gap-3">
-  {% include "components/theme_toggle.html" %}
+    <div class="flex items-center gap-3">
+      {% include "components/theme_toggle.html" %}
 
-  {% if current_user.is_authenticated %}
-    <!-- Tombol Keluar -->
-    <a
-      href="{{ url_for('auth.logout') }}"
-      class="hidden sm:inline-flex items-center justify-center px-3 py-1.5 rounded-full text-xs font-medium
-             border border-red-500 text-red-600 bg-white
-             hover:bg-red-50 hover:text-red-700
-             dark:border-red-400 dark:text-red-200 dark:bg-slate-900
-             dark:hover:bg-slate-800 transition"
-    >
-      Keluar
-    </a>
+      {% if current_user.is_authenticated %}
+        <!-- Email + ikon profil -->
+        <div class="hidden sm:flex items-center gap-2">
+          <span class="text-xs text-slate-600 dark:text-slate-300">
+            {{ current_user.email }}
+          </span>
+          <button
+            class="w-9 h-9 rounded-full border border-slate-300 bg-white text-slate-700
+                   dark:border-slate-600 dark:bg-slate-900 dark:text-slate-200
+                   flex items-center justify-center hover:border-sky-400 hover:text-sky-300 transition text-lg"
+            title="Profil"
+          >
+            ☺
+          </button>
+        </div>
 
-    <!-- Profil + email (hanya saat sudah login) -->
-    <div class="hidden sm:flex items-center gap-2">
-      <span class="text-xs text-slate-600 dark:text-slate-300">
-        {{ current_user.email }}
-      </span>
-      <button
-        class="w-9 h-9 rounded-full border border-slate-300 bg-white text-slate-700
-               dark:border-slate-600 dark:bg-slate-900 dark:text-slate-200
-               flex items-center justify-center hover:border-sky-400 hover:text-sky-300 transition text-lg"
-        title="Profil"
-      >
-        ☺
-      </button>
-    </div>
-  {% else %}
-    <!-- Belum login: cuma Masuk + Daftar, TANPA ikon profil dan email -->
-    <a
-      href="{{ url_for('auth.login') }}"
-      class="hidden sm:inline-flex items-center justify-center px-3 py-1.5 rounded-full text-xs font-medium
-             border border-sky-500 text-sky-600 bg-white
-             hover:bg-sky-50 hover:text-sky-700
-             dark:border-sky-400 dark:text-sky-200 dark:bg-slate-900
-             dark:hover:bg-slate-800 transition"
-    >
-      Masuk
-    </a>
-    <a
-      href="{{ url_for('auth.register') }}"
-      class="hidden sm:inline-flex items-center justify-center px-3 py-1.5 rounded-full text-xs font-medium
-             bg-sky-500 text-white hover:bg-sky-600 shadow-sm shadow-sky-500/40 transition"
-    >
-      Daftar
-    </a>
-  {% endif %}
-</div>
-    
+        <!-- Tombol Keluar di paling kanan -->
+        <a href="{{ url_for('auth.logout') }}"
+           class="hidden sm:inline-flex items-center justify-center px-3 py-1.5 rounded-full text-xs font-medium
+                  border border-red-500 text-red-600 bg-white
+                  hover:bg-red-50 hover:text-red-700
+                  dark:border-red-400 dark:text-red-200 dark:bg-slate-900
+                  dark:hover:bg-slate-800 transition">
+          Keluar
+        </a>
+      {% else %}
+        <!-- Belum login: Masuk + Daftar -->
+        <a
+          href="{{ url_for('auth.login') }}"
+          class="hidden sm:inline-flex items-center justify-center px-3 py-1.5 rounded-full text-xs font-medium
+                 border border-sky-500 text-sky-600 bg-white
+                 hover:bg-sky-50 hover:text-sky-700
+                 dark:border-sky-400 dark:text-sky-200 dark:bg-slate-900
+                 dark:hover:bg-slate-800 transition">
+          Masuk
+        </a>
+        <a
+          href="{{ url_for('auth.register') }}"
+          class="hidden sm:inline-flex items-center justify-center px-3 py-1.5 rounded-full text-xs font-medium
+                 bg-sky-500 text-white hover:bg-sky-600 shadow-sm shadow-sky-500/40 transition">
+          Daftar
+        </a>
+      {% endif %}
     </div>
   </div>
 </nav>

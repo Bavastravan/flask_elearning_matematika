@@ -67,21 +67,25 @@ def register():
 
 @auth_bp.route("/login", methods=["GET", "POST"])
 def login():
+    # Kalau sudah login, tidak perlu ke halaman login lagi
+    if current_user.is_authenticated:
+        return redirect(url_for("main.index"))
+
     if request.method == "POST":
-        email = request.form.get("email")
-        password = request.form.get("password")
+        email = request.form.get("email", "").strip().lower()
+        password = request.form.get("password", "")
 
         user = User.query.filter_by(email=email).first()
+
         if not user or not verify_password(user.password_hash, password):
             flash("Email atau password salah.", "danger")
             return redirect(url_for("auth.login"))
 
         login_user(user)
-        # redirect berdasarkan role
-        if user.role == "admin":
-            return redirect(url_for("admin.dashboard"))
-        return redirect(url_for("siswa.dashboard"))
+        flash("Berhasil login.", "success")
+        return redirect(url_for("main.index"))
 
+    # GET: tampilkan form login
     return render_template("auth/login.html")
 
 

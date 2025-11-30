@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}Buku Matematika - E-Learning SD{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-slate-50 dark:bg-slate-900 px-4 py-4">
+
+  <!-- Header dashboard siswa (sama seperti dashboard) -->
+  <header class="mb-4 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-950/80 backdrop-blur">
+    <div class="max-w-6xl mx-auto px-4 h-12 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="text-sm font-semibold text-slate-900 dark:text-white">
+          E-Learning Math SD
+        </span>
+        <span class="hidden sm:inline-flex text-[11px] px-2 py-0.5 rounded-full bg-sky-100 text-sky-700 dark:bg-sky-900/60 dark:text-sky-300">
+          Buku Siswa
+        </span>
+      </div>
+      <div class="flex items-center gap-3">
+        {% include "components/theme_toggle.html" %}
+        <div class="hidden sm:flex items-center gap-2">
+          <span class="text-[11px] text-slate-600 dark:text-slate-300">
+            {{ current_user.email }}
+          </span>
+          <button
+            class="w-8 h-8 rounded-full border border-slate-300 bg-white text-slate-700
+                   dark:border-slate-600 dark:bg-slate-900 dark:text-slate-200
+                   flex items-center justify-center hover:border-sky-400 hover:text-sky-300 transition text-sm"
+            title="Profil">
+            ☺
+          </button>
+        </div>
+        <a
+          href="{{ url_for('auth.logout') }}"
+          class="inline-flex items-center justify-center px-3 py-1.5 rounded-full text-[11px] font-medium
+                 border border-red-500 text-red-600 bg-white
+                 hover:bg-red-50 hover:text-red-700
+                 dark:border-red-400 dark:text-red-200 dark:bg-slate-900
+                 dark:hover:bg-slate-800 transition">
+          Keluar
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="max-w-6xl mx-auto flex gap-4">
+
+    <!-- Sidebar sama seperti dashboard, tapi menu Buku aktif -->
+    <aside class="w-48 md:w-56 bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-xl p-3 shadow-sm">
+      <div class="mb-3">
+        <p class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+          Menu Siswa
+        </p>
+      </div>
+      <nav class="space-y-1 text-[13px]">
+        <a href="{{ url_for('siswa.dashboard') }}"
+           class="flex items-center px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70 transition">
+          Dashboard
+        </a>
+        <a href="{{ url_for('siswa.buku') }}"
+           class="flex items-center justify-between px-3 py-2 rounded-lg bg-sky-500/10 text-sky-600 dark:bg-sky-500/20 dark:text-sky-200 font-semibold">
+          <span>Buku</span>
+          <span class="text-[10px]">●</span>
+        </a>
+        <a href="{{ url_for('siswa.misi') }}"
+   class="flex items-center px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70 transition">
+    Misi
+  </a>
+  <a href="{{ url_for('siswa.progress') }}"
+    class="flex items-center px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70 transition">
+    Progress
+  </a>
+
+      </nav>
+    </aside>
+
+    <!-- Konten utama: daftar buku -->
+    <main class="flex-1 bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700 rounded-xl p-4 shadow-sm">
+      <h1 class="text-lg md:text-xl font-semibold text-slate-900 dark:text-slate-50 mb-4">
+        Daftar Buku Matematika
+      </h1>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {% for i in range(1, 7) %}
+        <div class="bg-white dark:bg-slate-900/90 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+          <div class="h-40 bg-slate-200 dark:bg-slate-800 flex items-center justify-center">
+            <span class="text-xs text-slate-500 dark:text-slate-300">Cover Buku {{ i }}</span>
+          </div>
+          <div class="p-4">
+            <h2 class="text-sm font-semibold text-slate-900 dark:text-slate-50">Judul Buku {{ i }}</h2>
+            <p class="text-[11px] text-slate-600 dark:text-slate-300 mb-3">
+              Deskripsi singkat buku {{ i }} untuk latihan matematika dasar.
+            </p>
+            <a href="#"
+               class="inline-flex items-center px-3 py-1.5 bg-sky-500 hover:bg-sky-600 text-white text-[11px] rounded-full transition">
+              Detail
+            </a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </main>
+
+  </div>
+</div>
+{% endblock %}

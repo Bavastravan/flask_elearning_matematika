@@ -1,9 +1,219 @@
 {% extends "base.html" %}
+
+{% block title %}Dashboard Siswa - E-Learning Matematika SD{% endblock %}
+
 {% block content %}
-<div class="max-w-6xl mx-auto px-4 py-8">
-  <h1 class="text-2xl font-semibold mb-4">Dashboard Siswa</h1>
-  <p class="text-gray-600 dark:text-gray-300">
-    Selamat datang di E-Learning Matematika SD.
-  </p>
+<div class="min-h-screen bg-slate-50 dark:bg-slate-900 px-4 py-4">
+
+  <!-- Header dashboard -->
+  <header class="mb-4 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-950/80 backdrop-blur">
+    <div class="max-w-6xl mx-auto px-4 h-12 flex items-center justify-between gap-4">
+      <!-- Judul projek -->
+      <div class="flex items-center gap-2">
+        <span class="text-sm font-semibold text-slate-900 dark:text-white">
+          E-Learning Math SD
+        </span>
+        <span class="hidden sm:inline-flex text-[11px] px-2 py-0.5 rounded-full bg-sky-100 text-sky-700 dark:bg-sky-900/60 dark:text-sky-300">
+          Dashboard Siswa
+        </span>
+      </div>
+
+      <!-- Kanan: toggle, email, profil, keluar -->
+      <div class="flex items-center gap-3">
+        {% include "components/theme_toggle.html" %}
+
+        <div class="hidden sm:flex items-center gap-2">
+          <span class="text-[11px] text-slate-600 dark:text-slate-300">
+            {{ current_user.email }}
+          </span>
+          <button
+            class="w-8 h-8 rounded-full border border-slate-300 bg-white text-slate-700
+                   dark:border-slate-600 dark:bg-slate-900 dark:text-slate-200
+                   flex items-center justify-center hover:border-sky-400 hover:text-sky-300 transition text-sm"
+            title="Profil">
+            ☺
+          </button>
+        </div>
+
+        <a
+          href="{{ url_for('auth.logout') }}"
+          class="inline-flex items-center justify-center px-3 py-1.5 rounded-full text-[11px] font-medium
+                 border border-red-500 text-red-600 bg-white
+                 hover:bg-red-50 hover:text-red-700
+                 dark:border-red-400 dark:text-red-200 dark:bg-slate-900
+                 dark:hover:bg-slate-800 transition">
+          Keluar
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="max-w-6xl mx-auto flex gap-4">
+
+    <!-- Sidebar -->
+    <aside class="w-48 md:w-56 bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-xl p-3 shadow-sm">
+      <div class="mb-3">
+        <p class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+          Menu Siswa
+        </p>
+      </div>
+     <nav class="space-y-1 text-[13px]">
+  <!-- Dashboard aktif -->
+  <a href="{{ url_for('siswa.dashboard') }}"
+     class="flex items-center justify-between px-3 py-2 rounded-lg
+            bg-sky-500/10 text-sky-600 dark:bg-sky-500/20 dark:text-sky-200 font-semibold">
+    <span>Dashboard</span>
+    <span class="text-[10px]">●</span>
+  </a>
+
+  <!-- Menu lain normal -->
+  <a href="{{ url_for('siswa.buku') }}"
+     class="flex items-center px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200
+            hover:bg-slate-100 dark:hover:bg-slate-800/70 transition">
+    Buku
+  </a>
+
+  <a href="{{ url_for('siswa.misi') }}"
+     class="flex items-center px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200
+            hover:bg-slate-100 dark:hover:bg-slate-800/70 transition">
+    Misi
+  </a>
+
+  <a href="{{ url_for('siswa.progress') }}"
+     class="flex items-center px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200
+            hover:bg-slate-100 dark:hover:bg-slate-800/70 transition">
+    Progress
+  </a>
+</nav>
+
+    </aside>
+
+    <!-- Konten utama -->
+    <main class="flex-1 space-y-6">
+      <!-- Header dalam konten -->
+      <header class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <div>
+          <h1 class="text-xl md:text-2xl font-semibold text-slate-900 dark:text-slate-50">
+            Halo, {{ current_user.nama or "Siswa" }}
+          </h1>
+          <p class="text-xs md:text-sm text-slate-600 dark:text-slate-300 mt-1">
+            Selamat datang di E‑Learning Matematika SD. Yuk lanjutkan latihan hari ini 🚀
+          </p>
+        </div>
+        <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-300">
+          <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-sky-100 text-sky-700 dark:bg-sky-900/60 dark:text-sky-300">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          Akun aktif · {{ current_user.nama or "Siswa" }}
+        </span>
+
+        </div>
+      </header>
+
+      <!-- Ringkasan progres -->
+      <section class="grid gap-4 md:grid-cols-3">
+        <div class="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700 rounded-xl p-4 shadow-sm">
+          <p class="text-xs font-medium text-slate-500 dark:text-slate-400">Total latihan selesai</p>
+          <p class="mt-2 text-2xl font-semibold text-slate-900 dark:text-slate-50">12</p>
+          <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Dari berbagai topik kelas 1–6 SD.</p>
+        </div>
+        <div class="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700 rounded-xl p-4 shadow-sm">
+          <p class="text-xs font-medium text-slate-500 dark:text-slate-400">Nilai rata‑rata</p>
+          <p class="mt-2 text-2xl font-semibold text-emerald-500">87</p>
+          <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Terus pertahankan dan tingkatkan lagi.</p>
+        </div>
+        <div class="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700 rounded-xl p-4 shadow-sm">
+          <p class="text-xs font-medium text-slate-500 dark:text-slate-400">Target hari ini</p>
+          <p class="mt-2 text-sm text-slate-900 dark:text-slate-50">
+            Selesaikan <span class="font-semibold">3 latihan</span> penjumlahan & pengurangan.
+          </p>
+          <button
+            class="mt-3 inline-flex items-center justify-center px-3 py-1.5 rounded-full bg-sky-500 hover:bg-sky-600 text-white text-xs font-medium transition">
+            Mulai latihan sekarang
+          </button>
+        </div>
+      </section>
+
+      <!-- Daftar modul -->
+      <section class="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700 rounded-xl p-4 shadow-sm">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-sm font-semibold text-slate-900 dark:text-slate-50">
+            Modul Matematika Dasar
+          </h2>
+          <span class="text-[11px] text-slate-500 dark:text-slate-400">
+            Pilih modul untuk mulai latihan
+          </span>
+        </div>
+
+        <div class="grid gap-3 md:grid-cols-2">
+          <article class="flex items-center justify-between rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/70 px-3 py-2.5 text-xs">
+            <div>
+              <p class="font-semibold text-slate-900 dark:text-slate-50">Penjumlahan & Pengurangan</p>
+              <p class="text-slate-600 dark:text-slate-300 text-[11px]">Bilangan 1–100 · 8 latihan</p>
+            </div>
+            <button class="px-3 py-1 rounded-full bg-sky-500 hover:bg-sky-600 text-white text-[11px] font-medium">
+              Mulai
+            </button>
+          </article>
+
+          <article class="flex items-center justify-between rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/70 px-3 py-2.5 text-xs">
+            <div>
+              <p class="font-semibold text-slate-900 dark:text-slate-50">Perkalian & Pembagian</p>
+              <p class="text-slate-600 dark:text-slate-300 text-[11px]">Tabel 1–10 · 6 latihan</p>
+            </div>
+            <button class="px-3 py-1 rounded-full bg-sky-500 hover:bg-sky-600 text-white text-[11px] font-medium">
+              Mulai
+            </button>
+          </article>
+
+          <article class="flex items-center justify-between rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/70 px-3 py-2.5 text-xs">
+            <div>
+              <p class="font-semibold text-slate-900 dark:text-slate-50">Soal Cerita</p>
+              <p class="text-slate-600 dark:text-slate-300 text-[11px]">Latihan pemahaman · 4 latihan</p>
+            </div>
+            <button class="px-3 py-1 rounded-full bg-sky-500 hover:bg-sky-600 text-white text-[11px] font-medium">
+              Mulai
+            </button>
+          </article>
+
+          <article class="flex items-center justify-between rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/70 px-3 py-2.5 text-xs">
+            <div>
+              <p class="font-semibold text-slate-900 dark:text-slate-50">Pecahan Sederhana</p>
+              <p class="text-slate-600 dark:text-slate-300 text-[11px]">Perkenalan pecahan · 3 latihan</p>
+            </div>
+            <button class="px-3 py-1 rounded-full bg-sky-500 hover:bg-sky-600 text-white text-[11px] font-medium">
+              Mulai
+            </button>
+          </article>
+        </div>
+      </section>
+
+      <!-- Riwayat singkat -->
+      <section class="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700 rounded-xl p-4 shadow-sm">
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="text-sm font-semibold text-slate-900 dark:text-slate-50">
+            Riwayat latihan terakhir
+          </h2>
+          <a href="#" class="text-[11px] text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300">
+            Lihat semua
+          </a>
+        </div>
+        <ul class="space-y-1.5 text-[11px] text-slate-600 dark:text-slate-300">
+          <li class="flex justify-between">
+            <span>Penjumlahan kelas 3</span>
+            <span class="font-medium text-emerald-500">90</span>
+          </li>
+          <li class="flex justify-between">
+            <span>Perkalian tabel 5</span>
+            <span class="font-medium text-emerald-500">85</span>
+          </li>
+          <li class="flex justify-between">
+            <span>Soal cerita uang jajan</span>
+            <span class="font-medium text-emerald-500">88</span>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+  </div>
 </div>
 {% endblock %}

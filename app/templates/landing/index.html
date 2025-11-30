@@ -45,11 +45,22 @@
 
       <div class="flex flex-col sm:flex-row gap-3 justify-center mt-5">
   <a
-    href="{{ url_for('auth.login') }}"
+    href="
+      {% if current_user.is_authenticated %}
+        {% if current_user.role == 'admin' %}
+          {{ url_for('admin.dashboard') }}
+        {% else %}
+          {{ url_for('siswa.dashboard') }}
+        {% endif %}
+      {% else %}
+        {{ url_for('auth.login') }}
+      {% endif %}
+    "
     class="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-sky-500 hover:bg-sky-600 text-white text-sm font-medium shadow-md shadow-sky-500/40 transition"
   >
     Mulai Belajar
   </a>
+
   <a
     href="#testimoni"
     class="inline-flex items-center justify-center px-5 py-2.5 rounded-full border border-sky-400
@@ -59,6 +70,7 @@
     Lihat Ulasan
   </a>
 </div>
+
 
 
           <!-- Aksen huruf -->
@@ -139,4 +151,40 @@
     </section>
   </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  if (window.history && window.history.replaceState) {
+    window.history.replaceState(null, "", window.location.href);
+  }
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // hanya aktif di halaman utama
+  const links = document.querySelectorAll(".nav-link[data-section]");
+  links.forEach(link => {
+    link.addEventListener("click", (e) => {
+      const target = link.getAttribute("data-section");
+      if (!target) return;
+
+      // kalau bukan beranda, cegah perubahan URL dan scroll halus
+      if (target !== "beranda") {
+        e.preventDefault();
+        const el = document.getElementById(target);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      } else {
+        // beranda: scroll ke atas tanpa ubah URL
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    });
+  });
+});
+</script>
+
+
 {% endblock %}

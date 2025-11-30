@@ -5,7 +5,7 @@ from app.utils.security import hash_password
 def create_default_admin():
     admin_email = "admin@elearning-math.local"
     admin_name = "Admin E-Learning"
-    admin_password = "admin123"  # ganti dengan password yang kamu mau
+    admin_password = "admin123"  
 
     existing = User.query.filter_by(email=admin_email).first()
     if existing:

@@ -1,4 +1,194 @@
 {% extends "base.html" %}
+
+{% block title %}Dashboard Admin - E-Learning Matematika SD{% endblock %}
+
 {% block content %}
-<div class="p-6">Dashboard Admin</div>
+<div class="min-h-screen bg-slate-50 dark:bg-slate-900 px-4 py-4">
+
+  <!-- Header admin -->
+  <header class="mb-4 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-950/80 backdrop-blur">
+    <div class="max-w-6xl mx-auto px-4 h-12 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="text-sm font-semibold text-slate-900 dark:text-white">
+          E-Learning Math SD
+        </span>
+        <span class="hidden sm:inline-flex text-[11px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/60 dark:text-emerald-300">
+          Dashboard Admin
+        </span>
+      </div>
+      <div class="flex items-center gap-3">
+        {% include "components/theme_toggle.html" %}
+        <div class="hidden sm:flex items-center gap-2">
+          <span class="text-[11px] text-slate-600 dark:text-slate-300">
+            {{ current_user.email }}
+          </span>
+          <button
+            class="w-8 h-8 rounded-full border border-slate-300 bg-white text-slate-700
+                   dark:border-slate-600 dark:bg-slate-900 dark:text-slate-200
+                   flex items-center justify-center hover:border-sky-400 hover:text-sky-300 transition text-sm"
+            title="Profil admin">
+            ⚙
+          </button>
+        </div>
+        <a
+          href="{{ url_for('auth.logout') }}"
+          class="inline-flex items-center justify-center px-3 py-1.5 rounded-full text-[11px] font-medium
+                 border border-red-500 text-red-600 bg-white
+                 hover:bg-red-50 hover:text-red-700
+                 dark:border-red-400 dark:text-red-200 dark:bg-slate-900
+                 dark:hover:bg-slate-800 transition">
+          Keluar
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="max-w-6xl mx-auto flex gap-4">
+
+    <!-- Sidebar admin -->
+    <aside class="w-52 bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-xl p-3 shadow-sm">
+      <div class="mb-3">
+        <p class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+          Menu Admin
+        </p>
+      </div>
+      <nav class="space-y-1 text-[13px]">
+        <a href="{{ url_for('admin.dashboard') }}"
+           class="flex items-center justify-between px-3 py-2 rounded-lg bg-sky-500/10 text-sky-600 dark:bg-sky-500/20 dark:text-sky-200 font-semibold">
+          <span>Dashboard</span>
+          <span class="text-[10px]">●</span>
+        </a>
+        <a href="#"
+           class="flex items-center px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70 transition">
+          Data Siswa
+        </a>
+        <a href="#"
+           class="flex items-center px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70 transition">
+          Modul & Misi
+        </a>
+        <a href="#"
+           class="flex items-center px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70 transition">
+          Nilai & Laporan
+        </a>
+        <a href="#"
+           class="flex items-center px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70 transition">
+          Pengaturan
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Konten utama -->
+    <main class="flex-1 space-y-6">
+
+      <!-- Salam admin -->
+      <section class="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700 rounded-xl p-4 shadow-sm">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+          <div>
+            <h1 class="text-xl md:text-2xl font-semibold text-slate-900 dark:text-slate-50">
+              Selamat datang, {{ current_user.nama or "Admin" }}
+            </h1>
+            <p class="text-xs md:text-sm text-slate-600 dark:text-slate-300 mt-1">
+              Pantau aktivitas siswa, kelola modul, dan lihat performa pembelajaran matematika SD.
+            </p>
+          </div>
+          <div class="flex gap-2 text-[11px]">
+            <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/60 dark:text-emerald-300">
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+              Mode Admin Aktif
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Ringkasan metrik -->
+      <section class="grid gap-4 md:grid-cols-3">
+        <div class="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700 rounded-xl p-4 shadow-sm">
+          <p class="text-xs font-medium text-slate-500 dark:text-slate-400">Total siswa terdaftar</p>
+          <p class="mt-2 text-2xl font-semibold text-slate-900 dark:text-slate-50">
+            120
+          </p>
+          <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+            Termasuk kelas 1 sampai 6 SD.
+          </p>
+        </div>
+        <div class="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700 rounded-xl p-4 shadow-sm">
+          <p class="text-xs font-medium text-slate-500 dark:text-slate-400">Misi diselesaikan minggu ini</p>
+          <p class="mt-2 text-2xl font-semibold text-emerald-500">
+            245
+          </p>
+          <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+            Aktivitas tinggi di kelas 4 dan 5.
+          </p>
+        </div>
+        <div class="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700 rounded-xl p-4 shadow-sm">
+          <p class="text-xs font-medium text-slate-500 dark:text-slate-400">Rata-rata nilai keseluruhan</p>
+          <p class="mt-2 text-2xl font-semibold text-sky-500">
+            84
+          </p>
+          <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+            Target minimal 80 tercapai.
+          </p>
+        </div>
+      </section>
+
+      <!-- Dua kolom: aktivitas & kontrol cepat -->
+      <section class="grid gap-4 md:grid-cols-3">
+        <!-- Aktivitas terbaru -->
+        <div class="md:col-span-2 bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700 rounded-xl p-4 shadow-sm">
+          <div class="flex items-center justify-between mb-2">
+            <h2 class="text-sm font-semibold text-slate-900 dark:text-slate-50">
+              Aktivitas terbaru siswa
+            </h2>
+            <a href="#" class="text-[11px] text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300">
+              Lihat semua
+            </a>
+          </div>
+          <ul class="divide-y divide-slate-100 dark:divide-slate-800 text-[11px]">
+            <li class="py-2 flex justify-between">
+              <span class="text-slate-700 dark:text-slate-200">
+                Tiara (Kelas 6) menyelesaikan misi “Perkalian Tabel 7”.
+              </span>
+              <span class="text-slate-500 dark:text-slate-400">2 menit lalu</span>
+            </li>
+            <li class="py-2 flex justify-between">
+              <span class="text-slate-700 dark:text-slate-200">
+                Bima (Kelas 4) mengerjakan latihan “Soal Cerita Uang Jajan”.
+              </span>
+              <span class="text-slate-500 dark:text-slate-400">10 menit lalu</span>
+            </li>
+            <li class="py-2 flex justify-between">
+              <span class="text-slate-700 dark:text-slate-200">
+                5 siswa baru mendaftar di kelas 2.
+              </span>
+              <span class="text-slate-500 dark:text-slate-400">Hari ini</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Kontrol cepat -->
+        <div class="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700 rounded-xl p-4 shadow-sm space-y-3 text-[13px]">
+          <h2 class="text-sm font-semibold text-slate-900 dark:text-slate-50 mb-1">
+            Kontrol cepat
+          </h2>
+          <button
+            class="w-full inline-flex items-center justify-between px-3 py-2 rounded-lg bg-sky-500 text-white hover:bg-sky-600 transition">
+            <span>Tambah modul baru</span>
+            <span class="text-xs">+</span>
+          </button>
+          <button
+            class="w-full inline-flex items-center justify-between px-3 py-2 rounded-lg bg-emerald-500 text-white hover:bg-emerald-600 transition">
+            <span>Kelola data siswa</span>
+            <span class="text-xs">⋯</span>
+          </button>
+          <button
+            class="w-full inline-flex items-center justify-between px-3 py-2 rounded-lg bg-slate-800 text-slate-100 hover:bg-slate-900 transition">
+            <span>Unduh laporan nilai</span>
+            <span class="text-xs">⭳</span>
+          </button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
 {% endblock %}

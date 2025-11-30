@@ -9,6 +9,9 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
     role = db.Column(db.String(20), default="siswa")
+    nama_sekolah = db.Column(db.String(150), nullable=True)  # <— kolom baru
+
+
 
     def __repr__(self):
         return f"<User {self.email}>"

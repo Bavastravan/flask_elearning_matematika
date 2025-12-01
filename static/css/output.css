@@ -54,6 +54,9 @@
 .inline-flex {
   display: inline-flex;
 }
+.table {
+  display: table;
+}
 .aspect-\[2\/1\] {
   aspect-ratio: 2/1;
 }

@@ -111,6 +111,9 @@ def progress():
     )
 
 @siswa_bp.route('/profil')
+@login_required
+@role_required("siswa")
+@nocache
 def profil():
     return render_template('siswa/profil.html')
 

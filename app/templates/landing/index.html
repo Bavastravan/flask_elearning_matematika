@@ -177,8 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
           el.scrollIntoView({ behavior: "smooth", block: "start" });
         }
       } else {
-        // beranda: scroll ke atas tanpa ubah URL
-        e.preventDefault();
+                e.preventDefault();
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
     });
@@ -186,5 +185,16 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  if (window.history && window.history.replaceState) {
+    window.history.replaceState(null, "", window.location.href);
+  }
+  
+  window.addEventListener("popstate", function() {
+    window.history.replaceState(null, "", window.location.href);
+  });
+});
+</script>
 
 {% endblock %}

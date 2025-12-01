@@ -1,8 +1,9 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, make_response
+from flask import Blueprint, render_template, request, redirect, url_for, flash, make_response, session
 from flask_login import login_user, logout_user, login_required, current_user
 from app.extensions import db
 from app.models import User
 from app.utils.security import hash_password, verify_password
+
 
 auth_bp = Blueprint("auth", __name__)
 
@@ -136,11 +137,16 @@ def forgot_password():
 
     return render_template("auth/forgot_password.html")
 
-
 @auth_bp.route("/logout")
 @login_required
 @nocache
 def logout():
     logout_user()
+    session.clear()
     flash("Anda telah logout.", "info")
-    return redirect(url_for("main.index"))
+    
+    # Buat response baru tanpa history parameter
+    response = make_response(redirect(url_for("main.index")))
+    response.headers["Clear-Site-Data"] = '"cache", "cookies", "storage"'
+    return response
+

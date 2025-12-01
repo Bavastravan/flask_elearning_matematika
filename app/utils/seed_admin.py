@@ -17,8 +17,7 @@ def create_default_admin():
         email=admin_email,
         password_hash=hash_password(admin_password),
         role="admin",
-        nama_sekolah=None,
-    )
+           )
     db.session.add(admin)
     db.session.commit()
     print("[INFO] Admin default dibuat:", admin_email)

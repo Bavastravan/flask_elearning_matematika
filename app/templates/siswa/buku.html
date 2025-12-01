@@ -5,7 +5,7 @@
 {% block content %}
 <div class="min-h-screen bg-slate-50 dark:bg-slate-900 px-4 py-4">
 
-  <!-- Header dashboard siswa (sama seperti dashboard) -->
+  <!-- Header -->
   <header class="mb-4 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-950/80 backdrop-blur">
     <div class="max-w-6xl mx-auto px-4 h-12 flex items-center justify-between gap-4">
       <div class="flex items-center gap-2">
@@ -45,7 +45,7 @@
 
   <div class="max-w-6xl mx-auto flex gap-4">
 
-    <!-- Sidebar sama seperti dashboard, tapi menu Buku aktif -->
+    <!-- Sidebar -->
     <aside class="w-48 md:w-56 bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-xl p-3 shadow-sm">
       <div class="mb-3">
         <p class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
@@ -63,44 +63,305 @@
           <span class="text-[10px]">●</span>
         </a>
         <a href="{{ url_for('siswa.misi') }}"
-   class="flex items-center px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70 transition">
-    Misi
-  </a>
-  <a href="{{ url_for('siswa.progress') }}"
-    class="flex items-center px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70 transition">
-    Progress
-  </a>
+           class="flex items-center px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70 transition">
+          Misi
+        </a>
+        <a href="{{ url_for('siswa.progress') }}"
+           class="flex items-center px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70 transition">
+          Progress
+        </a>
 
+        <a href="{{ url_for('siswa.profil') }}"
+     class="flex items-center px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200
+            hover:bg-slate-100 dark:hover:bg-slate-800/70 transition">
+    Profil
+</a>
       </nav>
     </aside>
 
-    <!-- Konten utama: daftar buku -->
+    <!-- Main Content -->
     <main class="flex-1 bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700 rounded-xl p-4 shadow-sm">
-      <h1 class="text-lg md:text-xl font-semibold text-slate-900 dark:text-slate-50 mb-4">
-        Daftar Buku Matematika
-      </h1>
+      <div class="mb-4">
+        <h1 class="text-lg md:text-xl font-semibold text-slate-900 dark:text-slate-50 mb-3">
+          Daftar Buku Matematika
+        </h1>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {% for i in range(1, 7) %}
-        <div class="bg-white dark:bg-slate-900/90 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
-          <div class="h-40 bg-slate-200 dark:bg-slate-800 flex items-center justify-center">
-            <span class="text-xs text-slate-500 dark:text-slate-300">Cover Buku {{ i }}</span>
-          </div>
-          <div class="p-4">
-            <h2 class="text-sm font-semibold text-slate-900 dark:text-slate-50">Judul Buku {{ i }}</h2>
-            <p class="text-[11px] text-slate-600 dark:text-slate-300 mb-3">
-              Deskripsi singkat buku {{ i }} untuk latihan matematika dasar.
-            </p>
-            <a href="#"
-               class="inline-flex items-center px-3 py-1.5 bg-sky-500 hover:bg-sky-600 text-white text-[11px] rounded-full transition">
-              Detail
-            </a>
-          </div>
-        </div>
-        {% endfor %}
+        <!-- Search Bar -->
+<div class="mb-4">
+  <input
+    type="text"
+    id="searchInput"
+    placeholder="🔍 Cari buku atau topik"
+    class="w-full px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600
+           bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-50 text-sm
+           placeholder:text-slate-400 dark:placeholder:text-slate-500
+           focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400 transition" />
+</div>
+
+
+
+       <!-- Filter Tabs -->
+<div class="flex flex-wrap gap-2 mb-4" id="filterTabs">
+  <button
+    type="button"
+    onclick="filterByClass('all'); setActiveFilter(this);"
+    class="filter-btn active px-4 py-1.5 rounded-full text-xs font-medium transition
+           bg-sky-500 text-white hover:bg-sky-600">
+    Semua
+  </button>
+
+  {% for kelas in range(1, 7) %}
+  <button
+    type="button"
+    onclick="filterByClass({{ kelas }}); setActiveFilter(this);"
+    class="filter-btn px-4 py-1.5 rounded-full text-xs font-medium transition
+           bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300
+           hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-600">
+    Kelas {{ kelas }}
+  </button>
+  {% endfor %}
+</div>
+
+
+    <!-- Grid Buku -->
+<p class="text-sm md:text-base font-semibold text-slate-800 dark:text-slate-100 mb-3">
+  Semua koleksi buku yang tersedia saat ini.
+</p>
+<div id="bookGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+  <!-- KELAS 1: Mengenal Angka 1–20 -->
+  <div class="book-card" data-class="1" data-title="Mengenal Angka 1-20" data-topic="pengenalan angka dasar bilangan">
+    <div class="bg-white dark:bg-slate-900/90 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden hover:shadow-md transition">
+      <div class="h-40 bg-slate-900 flex items-center justify-center overflow-hidden">
+        <img
+          src="{{ url_for('static', filename='covers/mengenal-angka-1-20.jpg') }}"
+          alt="Mengenal Angka 1-20"
+          class="w-full h-full object-cover">
       </div>
-    </main>
+      <div class="p-4">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-pink-100 text-pink-700 dark:bg-pink-900/60 dark:text-pink-300">Kelas 1</span>
+          <span class="text-[10px] text-slate-500 dark:text-slate-400">📖 12 Hal</span>
+        </div>
+        <h2 class="text-sm font-semibold text-slate-900 dark:text-slate-50 mb-1">Mengenal Angka 1-20</h2>
+        <p class="text-[11px] text-slate-600 dark:text-slate-300 mb-3">
+          Belajar mengenal dan menulis angka 1 sampai 20 dengan cara yang menyenangkan.
+        </p>
+        <a href="#"
+           class="inline-flex items-center px-3 py-1.5 bg-sky-500 hover:bg-sky-600 text-white text-[11px] rounded-full transition">
+          Baca Buku
+        </a>
+      </div>
+    </div>
+  </div>
 
+  <!-- Penjumlahan Sederhana -->
+  <div class="book-card" data-class="1" data-title="Penjumlahan Sederhana" data-topic="penjumlahan tambah operasi hitung">
+    <div class="bg-white dark:bg-slate-900/90 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden hover:shadow-md transition">
+      <div class="h-40 bg-slate-900 flex items-center justify-center overflow-hidden">
+        <img
+          src="{{ url_for('static', filename='covers/penjumlahan-sederhana.png') }}"
+          alt="Penjumlahan Sederhana"
+          class="w-full h-full object-cover">
+      </div>
+      <div class="p-4">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-pink-100 text-pink-700 dark:bg-pink-900/60 dark:text-pink-300">Kelas 1</span>
+          <span class="text-[10px] text-slate-500 dark:text-slate-400">📖 15 Hal</span>
+        </div>
+        <h2 class="text-sm font-semibold text-slate-900 dark:text-slate-50 mb-1">Penjumlahan Sederhana</h2>
+        <p class="text-[11px] text-slate-600 dark:text-slate-300 mb-3">
+          Belajar menjumlahkan bilangan 1-10 dengan gambar dan latihan interaktif.
+        </p>
+        <a href="#"
+           class="inline-flex items-center px-3 py-1.5 bg-sky-500 hover:bg-sky-600 text-white text-[11px] rounded-full transition">
+          Baca Buku
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pengurangan Dasar -->
+  <div class="book-card" data-class="1" data-title="Pengurangan Dasar" data-topic="pengurangan kurang operasi hitung">
+    <div class="bg-white dark:bg-slate-900/90 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden hover:shadow-md transition">
+      <div class="h-40 bg-slate-900 flex items-center justify-center overflow-hidden">
+        <img
+          src="{{ url_for('static', filename='covers/pengurangan-dasar.jpeg') }}"
+          alt="Pengurangan Dasar"
+          class="w-full h-full object-cover">
+      </div>
+      <div class="p-4">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-pink-100 text-pink-700 dark:bg-pink-900/60 dark:text-pink-300">Kelas 1</span>
+          <span class="text-[10px] text-slate-500 dark:text-slate-400">📖 14 Hal</span>
+        </div>
+        <h2 class="text-sm font-semibold text-slate-900 dark:text-slate-50 mb-1">Pengurangan Dasar</h2>
+        <p class="text-[11px] text-slate-600 dark:text-slate-300 mb-3">
+          Memahami konsep pengurangan dengan cara mudah dan menyenangkan.
+        </p>
+        <a href="#"
+           class="inline-flex items-center px-3 py-1.5 bg-sky-500 hover:bg-sky-600 text-white text-[11px] rounded-full transition">
+          Baca Buku
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mengenal Bentuk Geometri -->
+  <div class="book-card" data-class="1" data-title="Mengenal Bentuk Geometri" data-topic="bentuk bangun geometri segitiga lingkaran persegi">
+    <div class="bg-white dark:bg-slate-900/90 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden hover:shadow-md transition">
+      <div class="h-40 bg-slate-900 flex items-center justify-center overflow-hidden">
+        <img
+          src="{{ url_for('static', filename='covers/mengenal-bentuk-geometri.jpg') }}"
+          alt="Mengenal Bentuk Geometri"
+          class="w-full h-full object-cover">
+      </div>
+      <div class="p-4">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-pink-100 text-pink-700 dark:bg-pink-900/60 dark:text-pink-300">Kelas 1</span>
+          <span class="text-[10px] text-slate-500 dark:text-slate-400">📖 10 Hal</span>
+        </div>
+        <h2 class="text-sm font-semibold text-slate-900 dark:text-slate-50 mb-1">Mengenal Bentuk Geometri</h2>
+        <p class="text-[11px] text-slate-600 dark:text-slate-300 mb-3">
+          Belajar mengenal bentuk dasar seperti persegi, lingkaran, segitiga, dan persegi panjang.
+        </p>
+        <a href="#"
+           class="inline-flex items-center px-3 py-1.5 bg-sky-500 hover:bg-sky-600 text-white text-[11px] rounded-full transition">
+          Baca Buku
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tambah kartu buku lain di sini -->
+
+<!-- Placeholder Kelas 2–6 -->
+<div class="book-card" data-class="2" data-title="Kelas 2" data-topic="">
+  <div class="bg-white dark:bg-slate-900/90 rounded-lg border border-dashed border-slate-300 dark:border-slate-700 shadow-sm overflow-hidden flex items-center justify-center h-40">
+    <p class="text-[11px] text-slate-500 dark:text-slate-300 text-center px-4">
+      Tunggu ya, kami sedang membuat koleksi untuk kelas 2.
+    </p>
   </div>
 </div>
+
+<div class="book-card" data-class="3" data-title="Kelas 3" data-topic="">
+  <div class="bg-white dark:bg-slate-900/90 rounded-lg border border-dashed border-slate-300 dark:border-slate-700 shadow-sm overflow-hidden flex items-center justify-center h-40">
+    <p class="text-[11px] text-slate-500 dark:text-slate-300 text-center px-4">
+      Tunggu ya, kami sedang membuat koleksi untuk kelas 3.
+    </p>
+  </div>
+</div>
+
+<div class="book-card" data-class="4" data-title="Kelas 4" data-topic="">
+  <div class="bg-white dark:bg-slate-900/90 rounded-lg border border-dashed border-slate-300 dark:border-slate-700 shadow-sm overflow-hidden flex items-center justify-center h-40">
+    <p class="text-[11px] text-slate-500 dark:text-slate-300 text-center px-4">
+      Tunggu ya, kami sedang membuat koleksi untuk kelas 4.
+    </p>
+  </div>
+</div>
+
+<div class="book-card" data-class="5" data-title="Kelas 5" data-topic="">
+  <div class="bg-white dark:bg-slate-900/90 rounded-lg border border-dashed border-slate-300 dark:border-slate-700 shadow-sm overflow-hidden flex items-center justify-center h-40">
+    <p class="text-[11px] text-slate-500 dark:text-slate-300 text-center px-4">
+      Tunggu ya, kami sedang membuat koleksi untuk kelas 5.
+    </p>
+  </div>
+</div>
+
+<div class="book-card" data-class="6" data-title="Kelas 6" data-topic="">
+  <div class="bg-white dark:bg-slate-900/90 rounded-lg border border-dashed border-slate-300 dark:border-slate-700 shadow-sm overflow-hidden flex items-center justify-center h-40">
+    <p class="text-[11px] text-slate-500 dark:text-slate-300 text-center px-4">
+      Tunggu ya, kami sedang membuat koleksi untuk kelas 6.
+    </p>
+  </div>
+</div>
+
+
+</div>
+
+
+
+
+        <!-- Tambah kartu buku lain di sini -->
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- SCRIPT FILTER BUKU -->
+<script>
+  function filterByClass(kelas) {
+    const cards = document.querySelectorAll('.book-card');
+    const countSpan = document.getElementById('bookCount');
+
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+      const bookClass = card.getAttribute('data-class');
+
+      if (kelas === 'all' || bookClass === String(kelas)) {
+        card.style.display = '';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    if (countSpan) {
+      countSpan.textContent = visibleCount;
+    }
+  }
+
+  document.getElementById('searchInput').addEventListener('input', function () {
+    const q = this.value.toLowerCase();
+    const cards = document.querySelectorAll('.book-card');
+    const countSpan = document.getElementById('bookCount');
+
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+      const title = card.getAttribute('data-title').toLowerCase();
+      const topic = card.getAttribute('data-topic').toLowerCase();
+
+      if (title.includes(q) || topic.includes(q)) {
+        card.style.display = '';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    if (countSpan) {
+      countSpan.textContent = visibleCount;
+    }
+  });
+</script>
+
+<script>
+function setActiveFilter(clickedBtn) {
+    // hapus class active dari semua tombol
+    const buttons = document.querySelectorAll(".filter-btn");
+    buttons.forEach(btn => {
+        btn.classList.remove("active", "bg-sky-500", "text-white");
+        btn.classList.add(
+            "bg-slate-100",
+            "dark:bg-slate-800",
+            "text-slate-700",
+            "dark:text-slate-300"
+        );
+    });
+
+    // tambahkan class active ke tombol yang diklik
+    clickedBtn.classList.add("active", "bg-sky-500", "text-white");
+    clickedBtn.classList.remove(
+        "bg-slate-100",
+        "dark:bg-slate-800",
+        "text-slate-700",
+        "dark:text-slate-300"
+    );
+}
+</script>
+
+
 {% endblock %}

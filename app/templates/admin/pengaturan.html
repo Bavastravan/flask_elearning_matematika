@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block title %}Pengaturan - Admin{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-slate-50 dark:bg-slate-900 px-4 py-4">
+
+
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1">
+
+      <div class="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700 rounded-xl p-6 shadow-sm">
+
+        <h1 class="text-lg md:text-xl font-semibold text-slate-900 dark:text-slate-50 mb-2">
+          Pengaturan Sistem
+        </h1>
+
+        <p class="text-xs md:text-sm text-slate-600 dark:text-slate-300 mb-6">
+          Atur informasi sekolah, akun admin, dan preferensi sistem.
+        </p>
+
+        <!-- FORM PENGATURAN -->
+        <form method="POST" class="space-y-8">
+
+          <!-- INFORMASI SEKOLAH -->
+          <section>
+            <h2 class="text-sm font-semibold text-slate-800 dark:text-slate-100 mb-3">
+              Informasi Sekolah
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+              <div>
+                <label class="text-xs font-medium text-slate-700 dark:text-slate-300">Nama Sekolah</label>
+                <input type="text"
+                       class="mt-1 w-full px-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-50"
+                       placeholder="SDN Contoh 01">
+              </div>
+
+              <div>
+                <label class="text-xs font-medium text-slate-700 dark:text-slate-300">Tahun Ajaran</label>
+                <input type="text"
+                       class="mt-1 w-full px-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-50"
+                       placeholder="2024/2025">
+              </div>
+
+              <div>
+                <label class="text-xs font-medium text-slate-700 dark:text-slate-300">Alamat Sekolah</label>
+                <input type="text"
+                       class="mt-1 w-full px-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-50"
+                       placeholder="Jl. Pendidikan No. 12">
+              </div>
+
+              <div>
+                <label class="text-xs font-medium text-slate-700 dark:text-slate-300">Email Sekolah</label>
+                <input type="email"
+                       class="mt-1 w-full px-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-50"
+                       placeholder="email@sekolah.id">
+              </div>
+
+            </div>
+          </section>
+
+          <hr class="border-slate-300 dark:border-slate-700">
+
+          <!-- PENGATURAN AKUN ADMIN -->
+          <section>
+            <h2 class="text-sm font-semibold text-slate-800 dark:text-slate-100 mb-3">
+              Akun Admin
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+              <div>
+                <label class="text-xs font-medium text-slate-700 dark:text-slate-300">Nama Admin</label>
+                <input type="text"
+                       class="mt-1 w-full px-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-50"
+                       placeholder="Nama lengkap">
+              </div>
+
+              <div>
+                <label class="text-xs font-medium text-slate-700 dark:text-slate-300">Email Admin</label>
+                <input type="email"
+                       class="mt-1 w-full px-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-50"
+                       placeholder="admin@contoh.id">
+              </div>
+
+              <div>
+                <label class="text-xs font-medium text-slate-700 dark:text-slate-300">Password Baru (opsional)</label>
+                <input type="password"
+                       class="mt-1 w-full px-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-50"
+                       placeholder="••••••••">
+              </div>
+
+            </div>
+          </section>
+
+          <hr class="border-slate-300 dark:border-slate-700">
+
+          <!-- PREFERENSI SISTEM -->
+          <section>
+            <h2 class="text-sm font-semibold text-slate-800 dark:text-slate-100 mb-3">
+              Preferensi Sistem
+            </h2>
+
+            <div class="space-y-3">
+
+              <label class="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300">
+                <input type="checkbox" class="w-4 h-4" checked>
+                Aktifkan mode gelap otomatis
+              </label>
+
+              <label class="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300">
+                <input type="checkbox" class="w-4 h-4">
+                Izinkan siswa mengubah avatar
+              </label>
+
+              <label class="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300">
+                <input type="checkbox" class="w-4 h-4">
+                Kirim notifikasi email ke admin setiap ada siswa baru
+              </label>
+
+            </div>
+          </section>
+
+          <!-- SUBMIT -->
+          <div class="pt-4">
+            <button type="submit"
+                    class="px-5 py-2 rounded-lg bg-sky-600 hover:bg-sky-700 text-white text-sm font-medium shadow">
+              Simpan Pengaturan
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+
+    </main>
+
+  </div>
+</div>
+{% endblock %}

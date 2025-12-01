@@ -46,36 +46,67 @@
   <div class="max-w-6xl mx-auto flex gap-4">
 
     <!-- Sidebar admin -->
-    <aside class="w-52 bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-xl p-3 shadow-sm">
-      <div class="mb-3">
-        <p class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
-          Menu Admin
-        </p>
-      </div>
-      <nav class="space-y-1 text-[13px]">
-        <a href="{{ url_for('admin.dashboard') }}"
-           class="flex items-center justify-between px-3 py-2 rounded-lg bg-sky-500/10 text-sky-600 dark:bg-sky-500/20 dark:text-sky-200 font-semibold">
-          <span>Dashboard</span>
-          <span class="text-[10px]">●</span>
-        </a>
-        <a href="#"
-           class="flex items-center px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70 transition">
-          Data Siswa
-        </a>
-        <a href="#"
-           class="flex items-center px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70 transition">
-          Modul & Misi
-        </a>
-        <a href="#"
-           class="flex items-center px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70 transition">
-          Nilai & Laporan
-        </a>
-        <a href="#"
-           class="flex items-center px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70 transition">
-          Pengaturan
-        </a>
-      </nav>
-    </aside>
+<aside class="w-52 bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-xl p-3 shadow-sm">
+  <div class="mb-3">
+    <p class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+      Menu Admin
+    </p>
+  </div>
+  <nav class="space-y-1 text-[13px]">
+    <a href="{{ url_for('admin.dashboard') }}"
+       class="flex items-center justify-between px-3 py-2 rounded-lg
+              {% if request.endpoint == 'admin.dashboard' %}
+                bg-sky-500/10 text-sky-600 dark:bg-sky-500/20 dark:text-sky-200 font-semibold
+              {% else %}
+                text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70
+              {% endif %}">
+      <span>Dashboard</span>
+      {% if request.endpoint == 'admin.dashboard' %}
+      <span class="text-[10px]">●</span>
+      {% endif %}
+    </a>
+
+    <a href="{{ url_for('admin.data_siswa') }}"
+       class="flex items-center px-3 py-2 rounded-lg
+              {% if request.endpoint == 'admin.data_siswa' %}
+                bg-sky-500/10 text-sky-600 dark:bg-sky-500/20 dark:text-sky-200 font-semibold
+              {% else %}
+                text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70
+              {% endif %}">
+      Data Siswa
+    </a>
+
+    <a href="{{ url_for('admin.modul_misi') }}"
+       class="flex items-center px-3 py-2 rounded-lg
+              {% if request.endpoint == 'admin.modul_misi' %}
+                bg-sky-500/10 text-sky-600 dark:bg-sky-500/20 dark:text-sky-200 font-semibold
+              {% else %}
+                text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70
+              {% endif %}">
+      Modul & Misi
+    </a>
+
+    <a href="{{ url_for('admin.nilai_laporan') }}"
+       class="flex items-center px-3 py-2 rounded-lg
+              {% if request.endpoint == 'admin.nilai_laporan' %}
+                bg-sky-500/10 text-sky-600 dark:bg-sky-500/20 dark:text-sky-200 font-semibold
+              {% else %}
+                text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70
+              {% endif %}">
+      Nilai & Laporan
+    </a>
+
+    <a href="{{ url_for('admin.pengaturan') }}"
+       class="flex items-center px-3 py-2 rounded-lg
+              {% if request.endpoint == 'admin.pengaturan' %}
+                bg-sky-500/10 text-sky-600 dark:bg-sky-500/20 dark:text-sky-200 font-semibold
+              {% else %}
+                text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70
+              {% endif %}">
+      Pengaturan
+    </a>
+  </nav>
+</aside>
 
     <!-- Konten utama -->
     <main class="flex-1 space-y-6">
@@ -105,7 +136,7 @@
         <div class="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700 rounded-xl p-4 shadow-sm">
           <p class="text-xs font-medium text-slate-500 dark:text-slate-400">Total siswa terdaftar</p>
           <p class="mt-2 text-2xl font-semibold text-slate-900 dark:text-slate-50">
-            120
+            1
           </p>
           <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
             Termasuk kelas 1 sampai 6 SD.
@@ -114,7 +145,7 @@
         <div class="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700 rounded-xl p-4 shadow-sm">
           <p class="text-xs font-medium text-slate-500 dark:text-slate-400">Misi diselesaikan minggu ini</p>
           <p class="mt-2 text-2xl font-semibold text-emerald-500">
-            245
+            Belum Ada.
           </p>
           <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
             Aktivitas tinggi di kelas 4 dan 5.
@@ -123,10 +154,10 @@
         <div class="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700 rounded-xl p-4 shadow-sm">
           <p class="text-xs font-medium text-slate-500 dark:text-slate-400">Rata-rata nilai keseluruhan</p>
           <p class="mt-2 text-2xl font-semibold text-sky-500">
-            84
+            Belum Ada.
           </p>
           <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
-            Target minimal 80 tercapai.
+            Target minimal 80.
           </p>
         </div>
       </section>

@@ -25,7 +25,6 @@ def nocache(view_func):
 def register():
     # Kalau sudah login, tidak perlu daftar lagi
     if current_user.is_authenticated:
-        # Bisa diarahkan langsung ke dashboard sesuai role
         if current_user.role == "siswa":
             return redirect(url_for("siswa.dashboard"))
         elif current_user.role == "admin":
@@ -35,6 +34,7 @@ def register():
     if request.method == "POST":
         nama = request.form.get("nama", "").strip()
         nama_sekolah = request.form.get("nama_sekolah", "").strip()
+        kelas = request.form.get("kelas", "").strip()
         email = request.form.get("email", "").strip().lower()
         password = request.form.get("password", "")
         password_confirm = request.form.get("password_confirm", "")
@@ -43,12 +43,18 @@ def register():
         cookie_consent = request.form.get("cookie_consent")
         parent_consent = request.form.get("parent_consent")
 
-        # Debug cek value nama_sekolah
-        print("DEBUG nama_sekolah:", repr(nama_sekolah))
-
         # 1. Validasi dasar
-        if not nama or not email or not password or not password_confirm:
-            flash("Semua kolom wajib diisi (kecuali nama sekolah).", "danger")
+        if not nama or not email or not password or not password_confirm or not kelas:
+            flash("Nama, email, kelas, dan password wajib diisi.", "danger")
+            return render_template("auth/register.html")
+
+        # validasi kelas 1–6
+        try:
+            kelas_int = int(kelas)
+            if kelas_int < 1 or kelas_int > 6:
+                raise ValueError
+        except ValueError:
+            flash("Kelas harus antara 1 sampai 6.", "danger")
             return render_template("auth/register.html")
 
         if password != password_confirm:
@@ -74,6 +80,7 @@ def register():
             password_hash=password_hash,
             role=role,
             nama_sekolah=nama_sekolah or None,
+            kelas=kelas_int,
         )
         db.session.add(user)
         db.session.commit()
@@ -82,6 +89,7 @@ def register():
         return redirect(url_for("auth.login"))
 
     return render_template("auth/register.html")
+
 
 
 @auth_bp.route("/login", methods=["GET", "POST"])

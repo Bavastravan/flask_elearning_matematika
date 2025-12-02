@@ -10,7 +10,7 @@
     <div class="max-w-6xl mx-auto px-4 h-12 flex items-center justify-between gap-4">
       <div class="flex items-center gap-2">
         <span class="text-sm font-semibold text-slate-900 dark:text-white">
-          E-Learning Math SD
+          E-Learning Kali-Bagi
         </span>
         <span class="hidden sm:inline-flex text-[11px] px-2 py-0.5 rounded-full bg-sky-100 text-sky-700 dark:bg-sky-900/60 dark:text-sky-300">
           Profil Siswa
@@ -51,7 +51,6 @@
 
     <!-- Sidebar -->
     <aside class="w-48 md:w-56 bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-xl p-3 shadow-sm">
-
       <div class="mb-3">
         <p class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
           Menu Siswa
@@ -59,7 +58,6 @@
       </div>
 
       <nav class="space-y-1 text-[13px]">
-
         <a href="{{ url_for('siswa.dashboard') }}"
            class="flex items-center px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200
                   hover:bg-slate-100 dark:hover:bg-slate-800/70 transition">
@@ -91,35 +89,94 @@
           <span>Profil</span>
           <span class="text-[10px]">●</span>
         </a>
-
       </nav>
     </aside>
 
     <!-- Konten Profil -->
-    <main class="flex-1">
+    <main class="flex-1 space-y-4">
 
-      <div class="bg-white dark:bg-slate-900/90 rounded-xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm">
+      <!-- Kartu ringkasan profil -->
+      <section class="bg-white dark:bg-slate-900/90 rounded-xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-full bg-sky-500/10 text-sky-600 dark:bg-sky-500/20 dark:text-sky-200 flex items-center justify-center text-lg font-semibold">
+            {{ (current_user.nama or '')[:1] | upper }}
+          </div>
+          <div class="flex-1">
+            <h1 class="text-lg md:text-xl font-semibold text-slate-900 dark:text-slate-50">
+              {{ current_user.nama or "Nama Siswa" }}
+            </h1>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400 mb-2">
+              Akun siswa E-Learning Kali-Bagi
+            </p>
 
-        <h1 class="text-xl font-semibold text-slate-900 dark:text-slate-50 mb-4">
-          Profil Siswa
-        </h1>
+            <div class="flex flex-wrap gap-2 text-[11px]">
+             <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 
+             dark:bg-emerald-900/60 dark:text-emerald-300">
+  Kelas {{ current_user.kelas or "-" }}
+</span>
 
-        <div class="space-y-3 text-slate-700 dark:text-slate-200 text-sm">
+{% if current_user.nama_sekolah %}
+<span class="px-2 py-0.5 rounded-full bg-sky-100 text-sky-700 
+             dark:bg-sky-900/60 dark:text-sky-300">
+  {{ current_user.nama_sekolah }}
+</span>
+{% endif %}
 
-          <p><strong>Nama:</strong> {{ current_user.nama }}</p>
-          <p><strong>Email:</strong> {{ current_user.email }}</p>
-          <p><strong>Kelas:</strong> {{ current_user.kelas }}</p>
-
-          <a href="#"
-             class="inline-block mt-4 px-4 py-2 rounded-lg text-white bg-blue-600 hover:bg-blue-700 transition">
-            Edit Profil
-          </a>
-
+          </div>
         </div>
 
-      </div>
+        <!-- Tombol Edit Profil -->
+        <div class="mt-4">
+          <a href="#"
+             class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg
+                    bg-blue-600 text-white hover:bg-blue-700 transition">
+            Edit Profil
+          </a>
+        </div>
+      </section>
+
+      <!-- Detail Informasi -->
+      <section class="bg-white dark:bg-slate-900/90 rounded-xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm">
+        <h2 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">
+          Informasi Akun
+        </h2>
+
+        <div class="space-y-3 text-sm">
+          <div>
+            <p class="text-slate-500 dark:text-slate-400 text-[12px]">Nama Lengkap</p>
+            <p class="text-slate-900 dark:text-slate-200 font-medium">
+              {{ current_user.nama or "-" }}
+            </p>
+          </div>
+
+          <div>
+            <p class="text-slate-500 dark:text-slate-400 text-[12px]">Email</p>
+            <p class="text-slate-900 dark:text-slate-200 font-medium">
+              {{ current_user.email or "-" }}
+            </p>
+          </div>
+
+          <div>
+            <p class="text-slate-500 dark:text-slate-400 text-[12px]">Kelas</p>
+            <p class="text-slate-900 dark:text-slate-200 font-medium">
+              {{ current_user.kelas or "-" }}
+            </p>
+          </div>
+
+          {% if current_user.nama_sekolah %}
+          <div>
+            <p class="text-slate-500 dark:text-slate-400 text-[12px]">Sekolah</p>
+            <p class="text-slate-900 dark:text-slate-200 font-medium">
+              {{ current_user.nama_sekolah }}
+            </p>
+          </div>
+          {% endif %}
+        </div>
+      </section>
+
     </main>
 
   </div>
 </div>
 {% endblock %}
+

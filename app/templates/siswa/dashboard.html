@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Dashboard Siswa - E-Learning Matematika SD{% endblock %}
+{% block title %}Dashboard Siswa - E-Learning Kali-Bagi{% endblock %}
 
 {% block content %}
 <div class="min-h-screen bg-slate-50 dark:bg-slate-900 px-4 py-4">
@@ -11,7 +11,7 @@
       <!-- Judul projek -->
       <div class="flex items-center gap-2">
         <span class="text-sm font-semibold text-slate-900 dark:text-white">
-          E-Learning Math SD
+          E-Learning Kali-Bagi
         </span>
         <span class="hidden sm:inline-flex text-[11px] px-2 py-0.5 rounded-full bg-sky-100 text-sky-700 dark:bg-sky-900/60 dark:text-sky-300">
           Dashboard Siswa
@@ -104,7 +104,7 @@
             Halo, {{ current_user.nama or "Siswa" }}
           </h1>
           <p class="text-xs md:text-sm text-slate-600 dark:text-slate-300 mt-1">
-            Selamat datang di E‑Learning Matematika SD. Yuk lanjutkan latihan hari ini 🚀
+            Selamat datang di E‑Learning Kali-Bagi. Yuk tingkatkan prestasi matematika mu sekarang. 🚀
           </p>
         </div>
         <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-300">
@@ -156,42 +156,35 @@
 
   </div>
 
-  <!-- Nilai Rata-rata -->
-  <div class="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700 
-              rounded-xl p-4 shadow-sm">
+  <!-- Poin Siswa -->
+<div class="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700 
+            rounded-xl p-4 shadow-sm">
 
-    <p class="text-xs font-medium text-slate-500 dark:text-slate-400">
-      Nilai rata-rata
+  <p class="text-xs font-medium text-slate-500 dark:text-slate-400">
+    Total Poin Kamu
+  </p>
+
+  <div class="flex items-end justify-between mt-2 mb-2">
+    <p class="text-2xl font-semibold text-emerald-500">
+      {{ poin }}
     </p>
-
-    <div class="flex items-end justify-between mt-2 mb-2">
-      <p class="text-2xl font-semibold text-emerald-500">
-        {{ rata_rata }}
-      </p>
-      <p class="text-xs text-slate-500 dark:text-slate-400">
-        Dari semua latihan yang terselesaikan
-      </p>
-    </div>
-
-    <!-- Progress bar nilai -->
-    <div class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-      <div class="h-full bg-emerald-500 rounded-full transition-all" 
-           style="width: {{ rata_rata }}%;">
-      </div>
-    </div>
-
+    <p class="text-xs text-slate-500 dark:text-slate-400">
+      Poin bertambah setiap kamu menyelesaikan misi
+    </p>
   </div>
+</div>
+
 
 </section>
 
-      <!-- Daftar modul -->
+     <!-- Daftar modul -->
 <section class="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700 rounded-xl p-4 shadow-sm">
   <div class="flex items-center justify-between mb-3">
     <h2 class="text-sm font-semibold text-slate-900 dark:text-slate-50">
       Modul Matematika Dasar
     </h2>
     <span class="text-[11px] text-slate-500 dark:text-slate-400">
-      Pilih modul untuk mulai latihan
+      Modul sesuai kelasmu, urut dari yang terbaru
     </span>
   </div>
 
@@ -200,39 +193,51 @@
     <article class="flex items-center justify-between rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/70 px-3 py-2.5 text-xs">
       <div>
         <p class="font-semibold text-slate-900 dark:text-slate-50">
-          {{ modul.nama }}
+          {{ modul.judul }}
         </p>
         <p class="text-slate-600 dark:text-slate-300 text-[11px]">
           {{ modul.deskripsi }}
         </p>
       </div>
-      <button class="px-3 py-1 rounded-full bg-sky-500 hover:bg-sky-600 text-white text-[11px] font-medium">
+      <a href="{{ url_for('siswa.buku') }}"
+         class="px-3 py-1 rounded-full bg-sky-500 hover:bg-sky-600 text-white text-[11px] font-medium">
         Mulai
-      </button>
+      </a>
     </article>
     {% endfor %}
   </div>
 </section>
 
 
-      <!-- Riwayat singkat -->
-      <section class="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700 rounded-xl p-4 shadow-sm">
-        <div class="flex items-center justify-between mb-2">
-          <h2 class="text-sm font-semibold text-slate-900 dark:text-slate-50">
-            Riwayat latihan terakhir
-          </h2>
-          <a href="#" class="text-[11px] text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300">
-            Lihat semua
-          </a>
-        </div>
-        <ul class="space-y-1.5 text-[11px] text-slate-600 dark:text-slate-300">
-          <li class="flex justify-between">
-            <span>Belum Ada.</span>
-            <span class="font-medium text-emerald-500">90</span>
-          </li>
-      
-        </ul>
-      </section>
+
+     <!-- Riwayat singkat -->
+<section class="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700 rounded-xl p-4 shadow-sm">
+  <div class="flex items-center justify-between mb-2">
+    <h2 class="text-sm font-semibold text-slate-900 dark:text-slate-50">
+      Riwayat latihan terakhir
+    </h2>
+    <a href="{{ url_for('siswa.progress') }}"
+       class="text-[11px] text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300">
+      Lihat semua
+    </a>
+  </div>
+
+  {% if riwayat_list %}
+  <ul class="space-y-1.5 text-[11px] text-slate-600 dark:text-slate-300">
+    {% for r in riwayat_list %}
+    <li class="flex justify-between">
+      <span>Level {{ r.level }} – nilai {{ r.nilai }}</span>
+      <span class="font-medium text-emerald-500">+{{ r.poin_didapat }} pts</span>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="text-[11px] text-slate-500 dark:text-slate-400">
+    Belum ada riwayat latihan. Selesaikan satu misi untuk melihat progres di sini.
+  </p>
+  {% endif %}
+</section>
+
     </main>
 
   </div>

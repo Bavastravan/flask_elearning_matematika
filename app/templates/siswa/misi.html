@@ -10,7 +10,7 @@
     <div class="max-w-6xl mx-auto px-4 h-12 flex items-center justify-between gap-4">
       <div class="flex items-center gap-2">
         <span class="text-sm font-semibold text-slate-900 dark:text-white">
-          E-Learning Math SD
+          E-Learning Kali-Bagi
         </span>
         <span class="hidden sm:inline-flex text-[11px] px-2 py-0.5 rounded-full bg-sky-100 text-sky-700 dark:bg-sky-900/60 dark:text-sky-300">
           Misi Matematika
@@ -89,41 +89,49 @@
           Pilih level misi. Setiap level berisi 20 soal campuran: soal cerita dan pilihan ganda.
         </p>
 
-        <!-- Grid card level 1–10 -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {% for level in range(1, 11) %}
-          <div class="bg-white dark:bg-slate-900/90 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm p-4 flex flex-col justify-between">
-            <div class="flex items-start justify-between mb-3">
-              <div>
-                <p class="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                  Level {{ level }}
-                </p>
-                <h2 class="text-sm md:text-base font-semibold text-slate-900 dark:text-slate-50">
-                  Misi Perkalian Dasar {{ level }}
-                </h2>
-              </div>
-              <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-sky-100 text-sky-700 dark:bg-sky-900/60 dark:text-sky-300 text-[11px]">
-                {{ level }}/10
-              </span>
-            </div>
+    <!-- Grid card level -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+  {% if misi_list %}
+    {% for m in misi_list %}
+    <div class="bg-white dark:bg-slate-900/90 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm p-4 flex flex-col justify-between">
+      <div class="flex items-start justify-between mb-3">
+        <div>
+          <p class="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400">
+            Level {{ m.level }}
+          </p>
+          <h2 class="text-sm md:text-base font-semibold text-slate-900 dark:text-slate-50">
+            {{ m.judul }}
+          </h2>
+        </div>
+        <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-sky-100 text-sky-700 dark:bg-sky-900/60 dark:text-sky-300 text-[11px]">
+          {{ m.level }}/10
+        </span>
+      </div>
 
-            <p class="text-[11px] text-slate-600 dark:text-slate-300 mb-3">
-              20 soal latihan: kombinasi soal cerita dan pilihan ganda untuk menguji pemahamanmu.
-            </p>
+      <p class="text-[11px] text-slate-600 dark:text-slate-300 mb-3">
+        {{ m.deskripsi or "Misi latihan matematika untuk level ini." }}
+      </p>
 
-            <div class="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 mb-3">
-              <span>Topik: Perkalian 1–10</span>
-              <span>20 Soal</span>
-            </div>
+      <div class="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 mb-3">
+        <span>Topik: Perkalian 1–10</span>
+        <span>{{ m.jumlah_soal or 20 }} Soal</span>
+      </div>
 
-            <button
-              type="button"
-              onclick="bukaLevel({{ level }})"
-              class="w-full inline-flex items-center justify-center px-3 py-2 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-medium transition">
-              Mulai Level {{ level }}
-            </button>
-          </div>
-          {% endfor %}
+      <button
+        type="button"
+        onclick="bukaLevel({{ m.level }})"
+        class="w-full inline-flex items-center justify-center px-3 py-2 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-medium transition">
+        Mulai Level {{ m.level }}
+      </button>
+    </div>
+    {% endfor %}
+  {% else %}
+    <p class="text-[11px] text-slate-500 dark:text-slate-300">
+      Belum ada misi yang diatur oleh admin.
+    </p>
+  {% endif %}
+</div>
+             
         </div>
       </div>
     </main>

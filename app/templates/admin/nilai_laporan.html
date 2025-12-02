@@ -9,10 +9,10 @@
     <div class="max-w-6xl mx-auto px-4 h-12 flex items-center justify-between gap-4">
       <div class="flex items-center gap-2">
         <span class="text-sm font-semibold text-slate-900 dark:text-white">
-          E-Learning Math SD
+          E-Learning Math Kali-BAgi
         </span>
         <span class="hidden sm:inline-flex text-[11px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/60 dark:text-emerald-300">
-         Nilai Laporan
+          Nilai & Laporan
         </span>
       </div>
       <div class="flex items-center gap-3">
@@ -45,91 +45,215 @@
   <div class="max-w-6xl mx-auto flex gap-4">
 
     <!-- Sidebar admin -->
-<aside class="w-52 bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-xl p-3 shadow-sm">
-  <div class="mb-3">
-    <p class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
-      Menu Admin
-    </p>
-  </div>
-  <nav class="space-y-1 text-[13px]">
-    <a href="{{ url_for('admin.dashboard') }}"
-       class="flex items-center justify-between px-3 py-2 rounded-lg
-              {% if request.endpoint == 'admin.dashboard' %}
-                bg-sky-500/10 text-sky-600 dark:bg-sky-500/20 dark:text-sky-200 font-semibold
-              {% else %}
-                text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70
-              {% endif %}">
-              Dashboard
-      </a>
-
-    <a href="{{ url_for('admin.data_siswa') }}"
-       class="flex items-center px-3 py-2 rounded-lg
-              {% if request.endpoint == 'admin.data_siswa' %}
-                bg-sky-500/10 text-sky-600 dark:bg-sky-500/20 dark:text-sky-200 font-semibold
-              {% else %}
-                text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70
-              {% endif %}">
-      Data Siswa
-    </a>
-
-   <!-- Modul & Misi -->
-<a href="{{ url_for('admin.modul_misi') }}"
-   class="flex items-center justify-between px-3 py-2 rounded-lg
-          {% if request.endpoint == 'admin.modul_misi' %}
-            bg-sky-500/10 text-sky-600 dark:bg-sky-500/20 dark:text-sky-200 font-semibold
-          {% else %}
-            text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70
-          {% endif %}">
-  <span>Modul & Misi</span>
-
-  {% if request.endpoint == 'admin.modul_misi' %}
-    <span class="text-[10px]">●</span>
-  {% endif %}
-</a>
-
-
-<!-- Nilai & Laporan -->
-<a href="{{ url_for('admin.nilai_laporan') }}"
-   class="flex items-center justify-between px-3 py-2 rounded-lg
-          {% if request.endpoint == 'admin.nilai_laporan' %}
-            bg-sky-500/10 text-sky-600 dark:bg-sky-500/20 dark:text-sky-200 font-semibold
-          {% else %}
-            text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70
-          {% endif %}">
-  <span>Nilai & Laporan</span>
-  {% if request.endpoint == 'admin.nilai_laporan' %}
-    <span class="text-[10px]">●</span>
-  {% endif %}
-</a>
-
-
-    <a href="{{ url_for('admin.pengaturan') }}"
-       class="flex items-center px-3 py-2 rounded-lg
-              {% if request.endpoint == 'admin.pengaturan' %}
-                bg-sky-500/10 text-sky-600 dark:bg-sky-500/20 dark:text-sky-200 font-semibold
-              {% else %}
-                text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70
-              {% endif %}">
-      Pengaturan
-    </a>
-  </nav>
-</aside>
-
-
-    <main class="flex-1">
-      <div class="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700 rounded-xl p-6 shadow-sm">
-        <h1 class="text-lg md:text-xl font-semibold text-slate-900 dark:text-slate-50 mb-2">
-          Nilai & Laporan
-        </h1>
-        <p class="text-xs md:text-sm text-slate-600 dark:text-slate-300 mb-4">
-          Lihat rekap nilai, unduh laporan, dan pantau performa setiap kelas.
+    <aside class="w-52 bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-xl p-3 shadow-sm">
+      <div class="mb-3">
+        <p class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+          Menu Admin
         </p>
+      </div>
+      <nav class="space-y-1 text-[13px]">
+        <a href="{{ url_for('admin.dashboard') }}"
+           class="flex items-center px-3 py-2 rounded-lg
+                  {% if request.endpoint == 'admin.dashboard' %}
+                    bg-sky-500/10 text-sky-600 dark:bg-sky-500/20 dark:text-sky-200 font-semibold
+                  {% else %}
+                    text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70
+                  {% endif %}">
+          Dashboard
+        </a>
 
-        <div class="border border-dashed border-slate-300 dark:border-slate-700 rounded-lg p-4 text-xs text-slate-500 dark:text-slate-300">
-          Grafik dan tabel laporan nilai akan muncul di sini.
+        <a href="{{ url_for('admin.data_siswa') }}"
+           class="flex items-center px-3 py-2 rounded-lg
+                  {% if request.endpoint == 'admin.data_siswa' %}
+                    bg-sky-500/10 text-sky-600 dark:bg-sky-500/20 dark:text-sky-200 font-semibold
+                  {% else %}
+                    text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70
+                  {% endif %}">
+          Data Siswa
+        </a>
+
+        <a href="{{ url_for('admin.modul_misi') }}"
+           class="flex items-center justify-between px-3 py-2 rounded-lg
+                  {% if request.endpoint == 'admin.modul_misi' %}
+                    bg-sky-500/10 text-sky-600 dark:bg-sky-500/20 dark:text-sky-200 font-semibold
+                  {% else %}
+                    text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70
+                  {% endif %}">
+          <span>Modul & Misi</span>
+          {% if request.endpoint == 'admin.modul_misi' %}
+          <span class="text-[10px]">●</span>
+          {% endif %}
+        </a>
+
+        <a href="{{ url_for('admin.nilai_laporan') }}"
+           class="flex items-center justify-between px-3 py-2 rounded-lg
+                  {% if request.endpoint == 'admin.nilai_laporan' %}
+                    bg-sky-500/10 text-sky-600 dark:bg-sky-500/20 dark:text-sky-200 font-semibold
+                  {% else %}
+                    text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70
+                  {% endif %}">
+          <span>Nilai & Laporan</span>
+          {% if request.endpoint == 'admin.nilai_laporan' %}
+          <span class="text-[10px]">●</span>
+          {% endif %}
+        </a>
+
+        <a href="{{ url_for('admin.pengaturan') }}"
+           class="flex items-center px-3 py-2 rounded-lg
+                  {% if request.endpoint == 'admin.pengaturan' %}
+                    bg-sky-500/10 text-sky-600 dark:bg-sky-500/20 dark:text-sky-200 font-semibold
+                  {% else %}
+                    text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70
+                  {% endif %}">
+          Pengaturan
+        </a>
+      </nav>
+    </aside>
+
+<!-- Konten utama: Form soal per level -->
+<main class="flex-1">
+  <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-6 shadow-sm">
+    <h1 class="text-lg md:text-xl font-semibold text-slate-900 dark:text-slate-50 mb-2">
+      Bank Soal Misi Level
+    </h1>
+    <p class="text-xs md:text-sm text-slate-600 dark:text-slate-300 mb-4">
+      Tambahkan hingga 20 soal pilihan ganda atau soal cerita untuk setiap level misi. Soal yang kosong akan diabaikan.
+    </p>
+
+    <form method="post" action="{{ url_for('admin.simpan_soal_level') }}" class="space-y-5 text-xs">
+
+      <!-- Pilih level -->
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="space-y-2">
+          <label class="block text-[11px] font-medium text-slate-700 dark:text-slate-200">
+            Level Misi
+          </label>
+          <select
+            name="level"
+            required
+            class="w-full px-3 py-2 rounded-lg border
+                   border-slate-300 dark:border-slate-700
+                   bg-white text-slate-900
+                   dark:bg-slate-900 dark:text-slate-100
+                   focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+            <option value="">Pilih level</option>
+            {% for lv in range(1,11) %}
+            <option value="{{ lv }}">Level {{ lv }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="space-y-2 md:col-span-2">
+          <label class="block text-[11px] font-medium text-slate-700 dark:text-slate-200">
+            Catatan Level (opsional)
+          </label>
+          <input
+            type="text"
+            name="catatan_level"
+            placeholder="contoh: fokus perkalian 1–5, konteks soal cerita sehari-hari"
+            class="w-full px-3 py-2 rounded-lg border
+                   border-slate-300 dark:border-slate-700
+                   bg-white text-slate-900
+                   dark:bg-slate-900 dark:text-slate-100
+                   focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
         </div>
       </div>
-    </main>
+
+      <!-- Soal-soal -->
+      <div class="space-y-4 max-h-[480px] overflow-y-auto pr-1">
+        {% for i in range(1,21) %}
+        <div class="border border-slate-200 dark:border-slate-800 rounded-lg p-3 bg-slate-50 dark:bg-slate-900/60">
+          <div class="flex items-center justify-between mb-2">
+            <p class="text-[11px] font-semibold text-slate-700 dark:text-slate-200">
+              Soal {{ i }}
+            </p>
+            <span class="text-[10px] text-slate-500 dark:text-slate-400">
+              Pilihan ganda / cerita
+            </span>
+          </div>
+
+          <!-- Teks soal -->
+          <div class="space-y-1 mb-2">
+            <label class="block text-[11px] text-slate-600 dark:text-slate-300">
+              Teks Soal
+            </label>
+            <textarea
+              name="soal_{{ i }}"
+              rows="2"
+              class="w-full px-3 py-2 rounded-lg border
+                     border-slate-300 dark:border-slate-600
+                     bg-white text-slate-900
+                     dark:bg-slate-800 dark:text-slate-100
+                     placeholder:text-slate-400 dark:placeholder:text-slate-500
+                     focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"></textarea>
+          </div>
+
+          <!-- Opsi jawaban -->
+          <div class="grid md:grid-cols-2 gap-2 mb-2">
+            {% for opsi in ["A","B","C","D"] %}
+            <div class="space-y-1">
+              <label class="block text-[11px] text-slate-600 dark:text-slate-300">
+                Opsi {{ opsi }}
+              </label>
+              <input
+                type="text"
+                name="opsi_{{ i }}_{{ opsi }}"
+                class="w-full px-3 py-1.5 rounded-lg border
+                       border-slate-300 dark:border-slate-600
+                       bg-white text-slate-900
+                       dark:bg-slate-800 dark:text-slate-100
+                       placeholder:text-slate-400 dark:placeholder:text-slate-500
+                       focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+            </div>
+            {% endfor %}
+          </div>
+
+          <!-- Jawaban benar -->
+          <div class="space-y-1">
+            <label class="block text-[11px] text-slate-600 dark:text-slate-300">
+              Jawaban Benar (pilih A/B/C/D atau isi angka/teks untuk soal cerita)
+            </label>
+            <div class="flex gap-2">
+              <select
+                name="kunci_pg_{{ i }}"
+                class="px-3 py-1.5 rounded-lg border
+                       border-slate-300 dark:border-slate-600
+                       bg-white text-slate-900
+                       dark:bg-slate-800 dark:text-slate-100
+                       focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                <option value="">- Pilihan ganda -</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+              </select>
+              <input
+                type="text"
+                name="kunci_isian_{{ i }}"
+                placeholder="opsional: untuk soal cerita / isian"
+                class="flex-1 px-3 py-1.5 rounded-lg border
+                       border-slate-300 dark:border-slate-600
+                       bg-white text-slate-900
+                       dark:bg-slate-800 dark:text-slate-100
+                       placeholder:text-slate-400 dark:placeholder:text-slate-500
+                       focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <div class="flex justify-end pt-2">
+        <button
+          type="submit"
+          class="px-4 py-2 rounded-full bg-sky-500 hover:bg-sky-600 text-white text-xs font-medium">
+          Simpan Soal Level Ini
+        </button>
+      </div>
+
+    </form>
+  </div>
+</main>
+
   </div>
 </div>
 {% endblock %}

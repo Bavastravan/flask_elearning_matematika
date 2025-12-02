@@ -7,10 +7,14 @@ class User(db.Model, UserMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     nama = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False, index=True)  # ← tambah index=True
+    email = db.Column(db.String(120), unique=True, nullable=False, index=True)
     password_hash = db.Column(db.String(255), nullable=False)
     role = db.Column(db.String(20), nullable=False, default="siswa")
-    nama_sekolah = db.Column(db.String(150), nullable=True)  # ← tambah kolom ini
+
+    # tambahan profil
+    nama_sekolah = db.Column(db.String(150), nullable=True)
+    kelas = db.Column(db.Integer, nullable=True)  # 1–6
+    poin = db.Column(db.Integer, default=0)
 
     def __repr__(self):
         return f"<User {self.email} ({self.role})>"

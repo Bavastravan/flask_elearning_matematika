@@ -49,7 +49,7 @@
           >
         </div>
 
-        <!-- Nama sekolah (opsional) -->
+               <!-- Nama sekolah (opsional) -->
         <div class="space-y-1">
           <label for="nama_sekolah" class="block text-xs font-medium text-slate-700 dark:text-slate-200">
             Nama sekolah <span class="text-slate-400 text-[10px]">(opsional)</span>
@@ -65,6 +65,26 @@
             placeholder="SD Negeri 01 Contoh"
           >
         </div>
+
+        <!-- Kelas (wajib) -->
+        <div class="space-y-1">
+          <label for="kelas" class="block text-xs font-medium text-slate-700 dark:text-slate-200">
+            Kelas<span class="text-red-500">*</span>
+          </label>
+          <select
+            id="kelas"
+            name="kelas"
+            required
+            class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900/80
+                   px-3 py-2.5 text-sm text-slate-900 dark:text-slate-100
+                   focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+            <option value="">Pilih kelas</option>
+            {% for k in range(1,7) %}
+            <option value="{{ k }}">Kelas {{ k }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
 
         <!-- Email (wajib) -->
         <div class="space-y-1">

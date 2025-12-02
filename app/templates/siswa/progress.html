@@ -10,7 +10,7 @@
     <div class="max-w-6xl mx-auto px-4 h-12 flex items-center justify-between gap-4">
       <div class="flex items-center gap-2">
         <span class="text-sm font-semibold text-slate-900 dark:text-white">
-          E-Learning Math SD
+          E-Learning Kali-Bagi
         </span>
         <span class="hidden sm:inline-flex text-[11px] px-2 py-0.5 rounded-full bg-sky-100 text-sky-700 dark:bg-sky-900/60 dark:text-sky-300">
           Progress Belajar
@@ -93,38 +93,41 @@
           Ringkasan jumlah misi yang kamu selesaikan dari hari Senin sampai Minggu.
         </p>
 
-        <!-- Grafik bar mini tanpa library -->
-        <div class="space-y-3">
-          <div class="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400">
-            <span>Hari</span>
-            <span>Misi selesai</span>
-          </div>
+       <!-- Grafik bar mini tanpa library -->
+<div class="space-y-3">
+  <div class="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400">
+    <span>Misi</span>
+    <span>Total Nilai</span>
+  </div>
 
-          <!-- Data statis contoh; nanti bisa diganti dari backend -->
-         {% set labels = ["Senin","Selasa","Rabu","Kamis","Jumat","Sabtu","Minggu"] %}
-{% set values = [1, 2, 2, 3, 4, 5, 6] %}
-{% set max_val = values|max %}
+  {# Data dari backend: labels_poin dan values_poin (fallback jika belum ada) #}
+  {% set labels = labels or ["Misi 1","Misi 2","Misi 3","Misi 4","Misi 5","Misi 6","Misi 7"] %}
+  {% set values = values or [10, 20, 20, 30, 40, 50, 60] %}
+  {% set max_val = values|max if values else 0 %}
+  {% set max_val = max_val if max_val > 0 else 1 %}
 
-<div class="space-y-2">
-  {% for i in range(labels|length) %}
-    {% set label = labels[i] %}
-    {% set val = values[i] %}
-    {% set percent = (val / max_val * 100) if max_val else 0 %}
+  <div class="space-y-2">
+    {% for i in range(labels|length) %}
+      {% set label = labels[i] %}
+      {% set val = values[i] %}
+      {% set percent = (val / max_val * 100) if max_val else 0 %}
 
-    <div class="flex items-center gap-3">
-      <div class="w-16 text-[11px] text-slate-600 dark:text-slate-300">
-        {{ label }}
+      <div class="flex items-center gap-3">
+        <div class="w-20 text-[11px] text-slate-600 dark:text-slate-300 truncate">
+          {{ label }}
+        </div>
+        <div class="flex-1 h-3 rounded-full bg-slate-200/70 dark:bg-slate-800/80 overflow-hidden">
+          <div class="h-full rounded-full bg-sky-500"
+               style="width: {{ '%.0f'|format(percent) }}%;"></div>
+        </div>
+        <div class="w-10 text-[11px] text-right text-slate-700 dark:text-slate-100">
+          {{ val }}
+        </div>
       </div>
-      <div class="flex-1 h-3 rounded-full bg-slate-200/70 dark:bg-slate-800/80 overflow-hidden">
-        <div class="h-full rounded-full bg-sky-500"
-             style="width: {{ '%.0f'|format(percent) }}%;"></div>
-      </div>
-      <div class="w-6 text-[11px] text-right text-slate-700 dark:text-slate-100">
-        {{ val }}
-      </div>
-    </div>
-  {% endfor %}
+    {% endfor %}
+  </div>
 </div>
+
 
         </div>
       </div>
